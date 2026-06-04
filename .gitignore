@@ -23,3 +23,5 @@ pnpm-debug.log*
 .vscode/
 .DS_Store
 Thumbs.db
+.mcp.json
+bbs-ui/stitch_bbs_forum_design_system/
