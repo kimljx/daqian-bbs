@@ -140,7 +140,48 @@ const router = new VueRouter({
             name:'pointsDetail',
             path:'/points/detail',
             component:BBSPointsDetail,
-        }
+        },
+
+        // ===== Stitch Design System Pages (lazy-loaded) =====
+        {
+            name: 'stitchIndex',
+            path: '/stitch-index',
+            component: () => import('@/views/StitchIndex.vue'),
+            meta: { auth: false }
+        },
+        {
+            name: 'stitchLogin',
+            path: '/stitch-login',
+            component: () => import('@/views/StitchLogin.vue'),
+            meta: { auth: false }
+        },
+        {
+            name: 'stitchPoints',
+            path: '/stitch-points',
+            component: () => import('@/views/StitchPoints.vue'),
+            meta: { auth: false }
+        },
+        {
+            name: 'stitchWrite',
+            path: '/stitch-write',
+            component: () => import('@/views/StitchWrite.vue'),
+        },
+        {
+            name: 'stitchUserinfo',
+            path: '/stitch-userinfo',
+            component: () => import('@/views/StitchUserinfo.vue'),
+        },
+        {
+            name: 'stitchStat',
+            path: '/stitch-stat',
+            component: () => import('@/views/StitchStat.vue'),
+        },
+        {
+            name: 'stitchArticleDetails',
+            path: '/stitch-article-details/articleId/:articleId',
+            component: () => import('@/views/StitchArticleDetails.vue'),
+            meta: { auth: false }
+        },
 
     ]
 })

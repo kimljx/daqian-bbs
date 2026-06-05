@@ -1,16 +1,26 @@
 <template>
-    <div>
-        <BBSHeader/>
-        <!--<BBSLogin/>-->
+    <div id="app-root">
+        <!-- Use new design header for stitch pages, original header for existing pages -->
+        <AppHeader v-if="isStitchRoute" />
+        <BBSHeader v-else />
+        <div :class="{ 'pt-16': isStitchRoute }">
+            <router-view />
+        </div>
     </div>
 </template>
 
 <script>
     import './assets/iconfont/iconfont.js'
     import BBSHeader from "@/components/BBSHeader";
+    import AppHeader from "@/components/AppHeader";
     export default {
         name: 'App',
-        components: {BBSHeader},
+        components: { BBSHeader, AppHeader },
+        computed: {
+            isStitchRoute() {
+                return this.$route.path.startsWith('/stitch-')
+            },
+        },
     }
 </script>
 
@@ -27,5 +37,4 @@
     .el-cascader-panel{
         height: 200px;
     }
-
 </style>
