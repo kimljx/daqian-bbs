@@ -32,7 +32,7 @@
         <!-- Center Feed: Articles -->
         <section class="md:col-span-7 space-y-4">
           <article
-            v-for="(article, index) in articles"
+            v-for="(article, index) in filteredArticles"
             :key="index"
             class="bg-container border border-border rounded-lg p-card-padding hover:shadow-sm transition-shadow cursor-pointer"
             @click="goToArticle(article)"
@@ -118,19 +118,23 @@ export default {
   data() {
     return {
       loading: false,
-      categories: [
-        { name: '技术交流', icon: 'thumb_up', active: true },
-        { name: '求助问答', icon: 'help', active: false },
-        { name: '资源共享', icon: 'folder_open', active: false },
-      ],
+      categories: [],
       articles: [],
       hotTopics: [],
+      filteredLabelId: null,
       imageBase: process.env.VUE_APP_BBS_BASE_FILE || '',
     }
   },
   mounted() {
     this.fetchArticles()
     this.fetchHotTopics()
+    this.loadLabels()
+  },
+  computed: {
+    filteredArticles() {
+      if (!this.filteredLabelId) return this.articles
+      return this.articles.filter(a => String(a.labelId) === String(this.filteredLabelId))
+    },
   },
   methods: {
     fetchArticles(keywords = '') {
@@ -147,6 +151,7 @@ export default {
           views: a.articleViewNum || 0,
           comments: a.articleCommentNum || a.commentNum || 0,
           likes: a.articleGoodNum || 0,
+          labelId: a.articleLabelId || null,
           cover: a.articleImage ? this.imageBase + a.articleImage : null,
         }))
       }).catch(() => {
@@ -165,9 +170,39 @@ export default {
         this.hotTopics = []
       })
     },
+    getLabelIcon(labelName) {
+      const iconMap = {
+        '技术交流': 'thumb_up',
+        '求助问答': 'help',
+        '资源共享': 'folder_open',
+      }
+      return iconMap[labelName] || 'bookmark'
+    },
+    loadLabels() {
+      this.getRequest('/common/getArticleLabel').then(resp => {
+        if (resp && Array.isArray(resp)) {
+          this.categories = resp.map((l, i) => ({
+            name: l.labelName,
+            icon: this.getLabelIcon(l.labelName),
+            labelId: l.labelId,
+            active: i === 0,
+          }))
+          // 不默认过滤，让用户可以看到全部文章
+        }
+      }).catch(() => {
+        this.categories = []
+      })
+    },
     selectCategory(cat) {
+      // 再次点击已激活的类别 → 取消过滤，显示全部
+      if (cat.active) {
+        cat.active = false
+        this.filteredLabelId = null
+        return
+      }
       this.categories.forEach(c => { c.active = false })
       cat.active = true
+      this.filteredLabelId = cat.labelId || null
     },
     goToArticle(article) {
       if (article.articleId) {

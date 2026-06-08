@@ -143,6 +143,7 @@ export default {
         title: '',
         publishTime: '',
         tag: '',
+        tagId: '',
         author: '',
         authorTitle: '',
         authorAvatar: '',
