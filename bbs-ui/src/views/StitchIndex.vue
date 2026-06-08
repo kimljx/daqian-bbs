@@ -82,14 +82,15 @@
             <ul class="space-y-4">
               <li
                 v-for="(topic, index) in hotTopics"
-                :key="index"
+                :key="topic.articleId || index"
                 class="flex items-start gap-3 group cursor-pointer"
+                @click="goToHotTopic(topic)"
               >
                 <span
                   class="flex-shrink-0 w-6 h-6 flex items-center justify-center rounded-full font-bold text-[12px]"
                   :class="getRankClass(index + 1)"
                 >{{ index + 1 }}</span>
-                <span class="font-body-md text-on-surface group-hover:text-primary-container transition-colors line-clamp-1">{{ topic }}</span>
+                <span class="font-body-md text-on-surface group-hover:text-primary-container transition-colors line-clamp-1">{{ topic.articleTitle }}</span>
               </li>
             </ul>
             <button class="w-full mt-6 py-2 text-label-md text-primary-container font-semibold hover:bg-surface-container-low rounded-lg transition-colors" @click="$router.push('/stitch-points')">
@@ -156,7 +157,10 @@ export default {
     fetchHotTopics() {
       this.getRequest('/common/article/getHot').then(resp => {
         const list = Array.isArray(resp) ? resp : (resp && resp.data && Array.isArray(resp.data) ? resp.data : [])
-        this.hotTopics = list.map(h => h.articleTitle || h)
+        this.hotTopics = list.map(h => ({
+          articleId: h.articleId,
+          articleTitle: h.articleTitle || '',
+        })).filter(h => h.articleId)
       }).catch(() => {
         this.hotTopics = []
       })
@@ -168,6 +172,11 @@ export default {
     goToArticle(article) {
       if (article.articleId) {
         this.$router.push({ name: 'stitchArticleDetails', params: { articleId: article.articleId } })
+      }
+    },
+    goToHotTopic(topic) {
+      if (topic.articleId) {
+        this.$router.push({ name: 'stitchArticleDetails', params: { articleId: topic.articleId } })
       }
     },
     getRankClass(rank) {
