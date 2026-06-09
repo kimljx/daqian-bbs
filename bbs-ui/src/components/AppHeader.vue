@@ -89,7 +89,7 @@
                   :src="portrait"
                 >
                 <div class="overflow-hidden">
-                  <h3 class="font-headline-sm text-headline-sm truncate text-on-surface">{{ username }}</h3>
+                  <h3 class="font-headline-sm text-headline-sm break-words text-on-surface">{{ username }}</h3>
                   <p class="font-label-md text-label-md text-on-surface-variant truncate">ID: {{ userId }}</p>
                 </div>
               </div>
