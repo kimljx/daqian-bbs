@@ -31,14 +31,14 @@
           <p class="font-headline-sm text-on-surface">审核与管理帖子</p>
           <p class="text-body-md text-secondary mt-1">审核、删除、查看帖子详情</p>
         </div>
-        <div class="bg-container border border-border rounded-xl p-card-padding hover:shadow-sm transition-shadow">
+        <!-- <div class="bg-container border border-border rounded-xl p-card-padding hover:shadow-sm transition-shadow">
           <div class="flex items-center justify-between mb-3">
             <span class="material-symbols-outlined text-[32px] text-brand-blue">bar_chart</span>
             <span class="text-label-md text-on-surface-variant">统计概览</span>
           </div>
           <p class="font-headline-sm text-on-surface">数据统计分析</p>
           <p class="text-body-md text-secondary mt-1">按单位查看文章发布统计</p>
-        </div>
+        </div> -->
         <div class="bg-container border border-border rounded-xl p-card-padding hover:shadow-sm transition-shadow">
           <div class="flex items-center justify-between mb-3">
             <span class="material-symbols-outlined text-[32px] text-rank-gold">workspace_premium</span>
@@ -63,10 +63,6 @@
           <router-link to="/stitch-article" class="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition-colors border border-outline-variant/50 group">
             <span class="material-symbols-outlined text-tertiary-container text-[24px]">rate_review</span>
             <span class="font-body-md text-on-surface group-hover:text-primary transition-colors">帖子管理</span>
-          </router-link>
-          <router-link to="/stitch-statistic" class="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition-colors border border-outline-variant/50 group">
-            <span class="material-symbols-outlined text-brand-blue text-[24px]">monitoring</span>
-            <span class="font-body-md text-on-surface group-hover:text-primary transition-colors">文章统计</span>
           </router-link>
           <router-link to="/stitch-points" class="flex items-center gap-3 p-4 bg-surface-container-low rounded-lg hover:bg-surface-container transition-colors border border-outline-variant/50 group">
             <span class="material-symbols-outlined text-rank-gold text-[24px]">leaderboard</span>

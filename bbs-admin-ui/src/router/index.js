@@ -130,16 +130,16 @@ export default new Router({
                     component: () => import('../pages/StitchCommunity.vue'),
                     meta: { title: '社区管理' }
                 },
-                {
-                    path: '/stitch-slideshow',
-                    component: () => import('../pages/StitchSlideshow.vue'),
-                    meta: { title: '轮播图管理' }
-                },
-                {
-                    path: '/stitch-statistic',
-                    component: () => import('../pages/StitchStatistic.vue'),
-                    meta: { title: '文章统计' }
-                },
+                // {
+                //     path: '/stitch-slideshow',
+                //     component: () => import('../pages/StitchSlideshow.vue'),
+                //     meta: { title: '轮播图管理' }
+                // },
+                // {
+                //     path: '/stitch-statistic',
+                //     component: () => import('../pages/StitchStatistic.vue'),
+                //     meta: { title: '文章统计' }
+                // },
                 {
                     path: '/stitch-points',
                     component: () => import('../pages/StitchPoints.vue'),
