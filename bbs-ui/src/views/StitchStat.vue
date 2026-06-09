@@ -10,8 +10,9 @@
       <div
         v-for="(article, index) in articles"
         :key="index"
-        class="bg-container border border-outline-variant rounded-lg p-card-padding flex flex-col md:flex-row gap-6 relative group card-shadow hover:border-primary-container transition-colors"
+        class="bg-container border border-outline-variant rounded-lg p-card-padding flex flex-col md:flex-row gap-6 relative group card-shadow hover:border-primary-container transition-colors cursor-pointer card-clickable"
         :style="{ transition: 'all 0.3s ease' }"
+        @click="goToArticle(article)"
       >
         <div class="flex-grow flex flex-col justify-between min-w-0">
           <div>
@@ -111,6 +112,11 @@ export default {
         this.loading = false
         this.articles = []
       })
+    },
+    goToArticle(article) {
+      if (article.articleId) {
+        this.$router.push({ name: 'stitchArticleDetails', params: { articleId: article.articleId } })
+      }
     },
     handleDelete(index) {
       const article = this.articles[index]

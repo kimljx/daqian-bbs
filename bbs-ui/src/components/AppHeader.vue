@@ -22,10 +22,10 @@
           </router-link>
           <router-link
             to="/stitch-points"
-            class="font-label-md text-label-md text-on-surface-variant hover:text-brand-blue transition-colors relative group pb-1"
+            class="font-label-md text-label-md pb-1 border-b-2 transition-colors"
+            :class="isActive('/stitch-points') ? 'text-brand-blue border-brand-blue' : 'text-on-surface-variant border-transparent hover:text-brand-blue'"
           >
             排行榜
-            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-brand-blue transition-all duration-300 group-hover:w-full"></span>
           </router-link>
         </nav>
       </div>
