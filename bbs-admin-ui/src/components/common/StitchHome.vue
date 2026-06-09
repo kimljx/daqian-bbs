@@ -8,10 +8,9 @@
       <!-- Sidebar -->
       <StitchSidebar />
 
-      <!-- Main Content Area -->
+      <!-- Main Content Area (flex sibling after sidebar, no extra margin needed) -->
       <div
         class="flex-1 flex flex-col overflow-hidden transition-all duration-300 ease-in-out"
-        :class="collapse ? 'ml-16' : 'ml-64'"
       >
         <!-- Tags Bar -->
         <StitchTags />
