@@ -59,8 +59,9 @@
           发布
         </router-link>
 
-        <!-- User Profile Section -->
+        <!-- User Profile Section (logged in) -->
         <div
+          v-if="isLogin && user"
           class="relative"
           :class="{ 'user-trigger-active': userMenuOpen }"
           @mouseenter="userMenuOpen = true"
@@ -70,7 +71,7 @@
             <img
               alt="Avatar"
               class="w-10 h-10 rounded-full border border-outline-variant object-cover"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvm7F4_ZDRPomSd1rU5QYncfZ3cyKHdKmiCuFEmUcKsGl7n-mtpgj8N6zy2LQEeh_gclaWLuL0RPqZwdSDjPzuedYjwyt6K0lFvKzXxGdRyBfY4HI1glInnG-52pvokhlvtMJ8PR9myquoXvuE5DgX10d9pqSM38Gogb26eZaV3ehfOcRz5PNJCTt6ojjdFptmFOFnk4VwFiBlqOeGHRHavnK49CNZyDLgrOXGnpwFtkDMXrKr_yMzXDy8Yx2sMKgwzwR2hNNLgWo"
+              :src="portrait"
             >
           </div>
           <!-- Popover Content -->
@@ -85,11 +86,11 @@
                 <img
                   alt="Large Avatar"
                   class="w-14 h-14 rounded-full border border-outline-variant object-cover"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuBa_UIRgrFc5kb4P6BXM5fNlTwZcVh7z7T03V3wAFYkdzUUfDRfi14c55aRiLowAbH6-DWTmgX9vvon8-6gMORbfrjuo_mXfirUvOBzpMQ4jdcmCWIl6KXq2Z_gLypbo4qi5TDkfRpFYxY9WGgacQ5MpAnZ7eYRlB9PWWOlTfsUAyfpySEq1zF1d8HTLJzqfPyZKtDepQ4WDCjpl08Qzj0_9y5x8iond6FxZUcERItIF_2C8Xoeh9wrIIntAKXZQ07UcUqolcKKX3k"
+                  :src="portrait"
                 >
                 <div class="overflow-hidden">
-                  <h3 class="font-headline-sm text-headline-sm truncate text-on-surface">智荟达人</h3>
-                  <p class="font-label-md text-label-md text-on-surface-variant truncate">ID: 20240985</p>
+                  <h3 class="font-headline-sm text-headline-sm truncate text-on-surface">{{ username }}</h3>
+                  <p class="font-label-md text-label-md text-on-surface-variant truncate">ID: {{ userId }}</p>
                 </div>
               </div>
               <!-- Action List -->
@@ -120,6 +121,15 @@
             </div>
           </div>
         </div>
+
+        <!-- Login button (not logged in) -->
+        <router-link
+          v-else
+          to="/stitch-login"
+          class="flex items-center gap-2 bg-surface-container-low text-on-surface-variant px-5 py-2 rounded-lg font-label-md text-label-md hover:bg-outline-variant transition-all active:scale-95 no-underline"
+        >
+          登录/注册
+        </router-link>
       </div>
     </div>
   </header>
@@ -134,15 +144,41 @@ export default {
       searchFocused: false,
       searchQuery: '',
       userMenuOpen: false,
+      isLogin: false,
+      user: null,
     }
+  },
+  computed: {
+    portrait() {
+      if (this.user && this.user.portrait) {
+        return `${process.env.VUE_APP_BBS_API}${this.user.portrait}`
+      }
+      return require('../assets/portrait.png')
+    },
+    username() {
+      return this.user && this.user.nickname ? this.user.nickname : '论坛用户'
+    },
+    userId() {
+      return this.user && this.user.id ? this.user.id : '-'
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll)
+    this.checkLoginState()
   },
   beforeDestroy() {
     window.removeEventListener('scroll', this.handleScroll)
   },
   methods: {
+    checkLoginState() {
+      if (window.sessionStorage.getItem('tokenStr')) {
+        this.isLogin = true
+        this.user = JSON.parse(window.sessionStorage.getItem('user') || 'null')
+      } else {
+        this.isLogin = false
+        this.user = null
+      }
+    },
     handleScroll() {
       this.scrolled = window.scrollY > 10
     },
@@ -154,6 +190,8 @@ export default {
     handleLogout() {
       window.sessionStorage.removeItem('tokenStr')
       window.sessionStorage.removeItem('user')
+      this.user = null
+      this.isLogin = false
       this.$router.push('/stitch-login')
     },
     isActive(path) {
