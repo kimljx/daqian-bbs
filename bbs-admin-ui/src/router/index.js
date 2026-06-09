@@ -14,7 +14,7 @@ export default new Router({
         },
         {
             path: '/',
-            component: () => import('../components/common/StitchHome.vue'),
+            component: () => import('../components/common/LayoutResolver.vue'),
             meta: {
                 title: '自述文件'
             },
