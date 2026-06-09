@@ -86,7 +86,7 @@ export default {
         { icon: 'emoji_events', label: '积分排名', path: '/stitch-points' },
         { icon: 'business', label: '单位管理', path: '/stitch-unit-manage' },
         { icon: 'bar_chart', label: '文章统计', path: '/stitch-statistic' },
-        { icon: 'edit_note', label: '写文章', path: '/stitch-write' },
+        // { icon: 'edit_note', label: '写文章', path: '/stitch-write' },
       ].map(item => ({ ...item, _open: false })),
     }
   },

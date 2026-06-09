@@ -160,11 +160,11 @@ export default new Router({
                     component: () => import('../pages/StitchSensitiveWord.vue'),
                     meta: { title: '敏感词管理' }
                 },
-                {
-                    path: '/stitch-write',
-                    component: () => import('../pages/StitchWrite.vue'),
-                    meta: { title: '写文章' }
-                },
+                // {
+                //     path: '/stitch-write',
+                //     component: () => import('../pages/StitchWrite.vue'),
+                //     meta: { title: '写文章' }
+                // },
                 {
                     path: '/stitch-404',
                     component: () => import('../pages/Stitch404.vue'),

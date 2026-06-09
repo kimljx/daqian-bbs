@@ -45,14 +45,14 @@
         <div class="flex md:flex-col gap-2 md:justify-center border-l md:border-l-0 md:pl-0 pl-4 border-outline-variant">
           <button
             class="flex items-center justify-center gap-1 px-4 py-2 rounded font-label-md text-label-md border border-on-tertiary-fixed-variant text-on-tertiary-fixed-variant bg-tertiary-fixed hover:bg-tertiary-container hover:text-white transition-all active:scale-95"
-            @click="handleDelete(index)"
+            @click.stop="handleDelete(index)"
           >
             <span class="material-symbols-outlined text-[18px]">delete</span>
             <span>删除</span>
           </button>
           <button
             class="flex items-center justify-center gap-1 px-4 py-2 rounded font-label-md text-label-md border border-outline text-secondary hover:bg-secondary-container hover:border-secondary transition-all active:scale-95"
-            @click="handleEdit(article)"
+            @click.stop="handleEdit(article)"
           >
             <span class="material-symbols-outlined text-[18px]">edit_note</span>
             <span>修改</span>
