@@ -2,25 +2,25 @@
   <div v-if="tagsList.length > 0" class="stitch-tags bg-surface-container-low border-b border-outline-variant">
     <div class="flex items-stretch">
       <!-- Tags scroll area -->
-      <div class="flex-1 flex items-center gap-1 px-2 py-1.5 overflow-x-auto scrollbar-none" ref="tagsWrapper">
+      <div class="flex-1 flex overflow-x-auto scrollbar-none gap-px px-1 pt-2.5" ref="tagsWrapper">
         <div
           v-for="(item, index) in tagsList"
           :key="item.path"
-          class="tag-item inline-flex items-center gap-1 px-2.5 py-1.5 cursor-pointer select-none rounded-lg transition-all duration-150 whitespace-nowrap text-[13px] group"
+          class="tag-item self-end inline-flex items-center gap-1 pl-6 pr-2.5 py-1 cursor-pointer select-none rounded-t-lg border border-outline-variant/30 border-b-0 transition-all duration-150 whitespace-nowrap text-[13px] group flex-shrink-0"
           :class="isActive(item.path)
-            ? 'tag-active bg-primary text-on-primary shadow-sm'
-            : 'text-on-surface-variant border border-outline-variant/30 hover:bg-surface-variant hover:text-on-surface hover:border-outline-variant/60'"
+            ? 'tag-active bg-container text-primary font-semibold z-10 translate-y-[1px] shadow-[0_-1px_4px_-2px_rgba(0,0,0,0.1)]'
+            : 'text-on-surface-variant bg-surface-variant/40 hover:bg-surface-variant hover:text-on-surface'"
           @click="$router.push(item.path)"
         >
           <!-- Title -->
-          <span class="max-w-[120px] truncate">{{ item.title }}</span>
+          <span class="max-w-[120px] truncate leading-none">{{ item.title }}</span>
           <!-- Close button -->
           <span
-            class="inline-flex items-center justify-center w-[18px] h-[18px] rounded-full text-[11px] opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-150"
-            :class="isActive(item.path) ? 'hover:bg-white/20' : 'hover:bg-outline-variant/60 text-outline'"
+            class="inline-flex items-center justify-center w-[26px] h-[26px] rounded-full text-[11px] opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-150"
+            :class="isActive(item.path) ? 'hover:bg-primary/10' : 'hover:bg-outline-variant/60 text-outline'"
             @click.stop="closeTags(index)"
           >
-            <span class="material-symbols-outlined text-[13px]">close</span>
+            <span class="material-symbols-outlined text-[15px]">close</span>
           </span>
         </div>
       </div>
