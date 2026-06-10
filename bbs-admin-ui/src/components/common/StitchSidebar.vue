@@ -84,7 +84,7 @@
         class="w-full flex items-center justify-center gap-2 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md"
         @click="toggleSidebar"
       >
-        <span class="material-symbols-outlined text-[20px] transition-transform duration-300" :class="{ 'rotate-180': collapse }">chevron_left</span>
+        <span class="material-symbols-outlined text-[20px] transition-all duration-300">{{ collapse ? 'chevron_right' : 'chevron_left' }}</span>
         <span v-show="!collapse">收起侧栏</span>
       </button>
     </div>
