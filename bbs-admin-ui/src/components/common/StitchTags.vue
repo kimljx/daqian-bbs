@@ -6,7 +6,7 @@
         <div
           v-for="(item, index) in tagsList"
           :key="item.path"
-          class="tag-item self-end inline-flex items-center gap-1 pl-6 pr-2.5 py-1 cursor-pointer select-none rounded-t-lg border border-outline-variant/30 border-b-0 transition-all duration-150 whitespace-nowrap text-[13px] group flex-shrink-0"
+          class="tag-item self-end inline-flex items-center gap-1 pl-7 pr-2.5 py-1.5 cursor-pointer select-none rounded-t-lg border border-outline-variant/30 border-b-0 transition-all duration-150 whitespace-nowrap text-[13px] group flex-shrink-0"
           :class="isActive(item.path)
             ? 'tag-active bg-container text-primary font-semibold z-10 translate-y-[1px] shadow-[0_-1px_4px_-2px_rgba(0,0,0,0.1)]'
             : 'text-on-surface-variant bg-surface-variant/40 hover:bg-surface-variant hover:text-on-surface'"
