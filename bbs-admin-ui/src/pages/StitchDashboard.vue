@@ -10,7 +10,7 @@
             <p class="text-body-md text-on-primary/70 mt-1">大千智荟创新创意交流论坛 - 管理平台</p>
           </div>
         </div>
-        <p class="text-body-lg text-on-primary/80 max-w-2xl">在这里您可以管理用户、文章、标签、社区、轮播图等所有论坛资源。</p>
+        <p class="text-body-lg text-on-primary/80 max-w-2xl">在这里您可以管理用户、文章、标签、社区等所有论坛资源。</p>
       </div>
 
       <!-- Quick Stats -->

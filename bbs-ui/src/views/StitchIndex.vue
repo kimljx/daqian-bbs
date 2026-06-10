@@ -93,9 +93,6 @@
                 <span class="font-body-md text-on-surface group-hover:text-primary-container transition-colors line-clamp-1">{{ topic.articleTitle }}</span>
               </li>
             </ul>
-            <button class="w-full mt-6 py-2 text-label-md text-primary-container font-semibold hover:bg-surface-container-low rounded-lg transition-colors" @click="$router.push('/stitch-points')">
-              查看完整榜单
-            </button>
           </div>
 
           <!-- Side Promotion Card -->
