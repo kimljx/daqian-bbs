@@ -17,12 +17,12 @@
         <div class="flex border-b border-border">
           <button class="flex-1 py-3.5 text-center font-headline-sm text-headline-sm transition-colors relative" :class="activeTab === 'done' ? 'text-primary' : 'text-on-surface-variant hover:text-on-surface'" @click="activeTab = 'done'">
             已审核
-            <span class="ml-1.5 px-1.5 py-0.5 text-[11px] rounded-full" :class="activeTab === 'done' ? 'bg-primary text-on-primary' : 'bg-surface-variant text-on-surface-variant'">{{ done.length }}</span>
+            <span class="ml-2 px-3 py-[3px] text-xs font-medium rounded-full" :class="activeTab === 'done' ? 'bg-primary text-on-primary' : 'bg-surface-variant text-on-surface-variant'">{{ done.length }}</span>
             <span v-if="activeTab === 'done'" class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"></span>
           </button>
           <button class="flex-1 py-3.5 text-center font-headline-sm text-headline-sm transition-colors relative" :class="activeTab === 'pending' ? 'text-primary' : 'text-on-surface-variant hover:text-on-surface'" @click="activeTab = 'pending'">
             未审核
-            <span class="ml-1.5 px-1.5 py-0.5 text-[11px] rounded-full" :class="activeTab === 'pending' ? 'bg-primary text-on-primary' : 'bg-surface-variant text-on-surface-variant'">{{ notDone.length }}</span>
+            <span class="ml-2 px-3 py-[3px] text-xs font-medium rounded-full" :class="activeTab === 'pending' ? 'bg-primary text-on-primary' : 'bg-surface-variant text-on-surface-variant'">{{ notDone.length }}</span>
             <span v-if="activeTab === 'pending'" class="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"></span>
           </button>
         </div>
