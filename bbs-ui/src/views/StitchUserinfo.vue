@@ -54,8 +54,8 @@
               <span class="font-body-md text-on-surface">我的资料更新</span>
             </div>
             <div class="flex gap-2">
-              <button class="px-4 py-1.5 bg-primary text-white text-label-md rounded-lg hover:bg-primary-container transition-colors" @click="saveChanges">Save</button>
-              <button class="px-4 py-1.5 bg-error text-white text-label-md rounded-lg hover:bg-red-700 transition-colors" @click="cancelChanges">Cancel</button>
+              <button class="px-4 py-1.5 bg-primary text-white text-label-md rounded-lg hover:bg-primary-container transition-colors" @click="saveChanges">保存</button>
+              <button class="px-4 py-1.5 bg-error text-white text-label-md rounded-lg hover:bg-red-700 transition-colors" @click="cancelChanges">取消</button>
             </div>
           </div>
 
