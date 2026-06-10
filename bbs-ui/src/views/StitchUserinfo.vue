@@ -139,7 +139,7 @@
               <button class="px-8 py-2.5 bg-primary text-white font-label-md text-label-md rounded-lg hover:bg-primary-container transition-colors shadow-md" type="submit">
                 提交修改
               </button>
-              <button class="px-8 py-2.5 bg-white text-on-surface-variant border border-outline-variant font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors" type="reset" @click="resetPasswordForm">
+              <button class="px-8 py-2.5 bg-white text-on-surface-variant border border-outline-variant font-label-md text-label-md rounded-lg hover:bg-surface-container-low transition-colors" type="button" @click="resetPasswordForm">
                 重置
               </button>
             </div>
@@ -210,6 +210,11 @@ export default {
         confirmPassword: '',
       },
       originalPhone: '',
+      originalPasswordForm: {
+        currentPassword: '',
+        newPassword: '',
+        confirmPassword: '',
+      },
     }
   },
   computed: {
@@ -247,6 +252,7 @@ export default {
       this.userInfo.username = u.username || ''
       this.userInfo.portrait = u.portrait || ''
       this.originalPhone = u.phone || ''
+      this.originalPasswordForm = { ...this.passwordForm }
     },
     togglePhoneEdit() {
       this.editingPhone = !this.editingPhone
@@ -326,7 +332,7 @@ export default {
       })
     },
     resetPasswordForm() {
-      this.passwordForm = { currentPassword: '', newPassword: '', confirmPassword: '' }
+      this.passwordForm = { ...this.originalPasswordForm }
     },
     triggerAvatarUpload() {
       this.$refs.avatarInput.click()
