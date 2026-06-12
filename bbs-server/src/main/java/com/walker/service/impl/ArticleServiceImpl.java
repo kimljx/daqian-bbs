@@ -203,7 +203,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                             Article::getArticleGoodNum,
                             Article::getArticleViewNum,
                             Article::getArticleImage,
-                            Article::getCreateTime
+                            Article::getCreateTime,
+                            Article::getArticleLabelId
                     )
             );
         } else {
@@ -231,7 +232,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                                 Article::getArticleGoodNum,
                                 Article::getArticleViewNum,
                                 Article::getArticleImage,
-                                Article::getCreateTime
+                                Article::getCreateTime,
+                                Article::getArticleLabelId
                         )
                 );
             }
@@ -249,7 +251,8 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                             Article::getArticleGoodNum,
                             Article::getArticleViewNum,
                             Article::getArticleImage,
-                            Article::getCreateTime
+                            Article::getCreateTime,
+                            Article::getArticleLabelId
                     )
             );
         }
