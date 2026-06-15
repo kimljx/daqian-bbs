@@ -350,23 +350,33 @@ export default {
         Message({ type: 'error', message: '回复失败', offset: 54 })
       })
     },
-    handleDeleteComment(commentId) {
-      this.$confirm('确定删除该评论？', '提示', {
+    handleDeleteComment(comment) {
+      const commentId = comment.id || comment
+      const isReply = commentId !== comment.commentRootId
+      this.$confirm('确定删除该' + (isReply ? '回复' : '评论') + '？', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
       }).then(() => {
-        // Try as comment first, then as reply
-        this.postRequest('/comment/deleteCommentById', { commentId }).then(resp => {
-          if (resp) {
-            this.loadComments(this.articleId)
-          }
-        }).catch(() => {
-          // Try as reply
-          this.postRequest('/reply/deleteReplyById', { replyId: commentId }).then(r => {
-            if (r) this.loadComments(this.articleId)
+        if (isReply) {
+          this.postRequest('/reply/deleteReplyById', { replyId: commentId }).then(resp => {
+            if (resp) {
+              Message({ type: 'success', message: '删除成功', offset: 54 })
+              this.loadComments(this.articleId)
+            }
+          }).catch(() => {
+            Message({ type: 'error', message: '删除失败', offset: 54 })
           })
-        })
+        } else {
+          this.postRequest('/comment/deleteCommentById', { commentId }).then(resp => {
+            if (resp) {
+              Message({ type: 'success', message: '删除成功', offset: 54 })
+              this.loadComments(this.articleId)
+            }
+          }).catch(() => {
+            Message({ type: 'error', message: '删除失败', offset: 54 })
+          })
+        }
       }).catch(() => {})
     },
     downloadFile(filePath, fileName) {

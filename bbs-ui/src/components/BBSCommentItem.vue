@@ -10,7 +10,7 @@
           <button class="hover:text-primary transition-primary flex items-center gap-1" @click="showReplyInput = !showReplyInput">
             <span class="material-symbols-outlined text-[16px]">reply</span> 回复
           </button>
-          <button v-if="comment.canDelete" class="hover:text-error transition-primary flex items-center gap-1" @click="$emit('delete', comment.id)">
+          <button v-if="comment.canDelete" class="hover:text-error transition-primary flex items-center gap-1" @click="$emit('delete', comment)">
             <span class="material-symbols-outlined text-[16px]">delete</span> 删除
           </button>
         </div>
@@ -23,7 +23,7 @@
 
       <!-- Nested Replies -->
       <div v-if="comment.children && comment.children.length > 0" class="ml-10 space-y-6 border-l-2 border-surface-container pl-4">
-        <CommentItem
+        <BBSCommentItem
           v-for="child in comment.children"
           :key="child.id"
           :comment="child"
