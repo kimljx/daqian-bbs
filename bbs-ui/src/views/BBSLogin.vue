@@ -170,13 +170,20 @@
           </div>
           <div class="max-h-96 overflow-y-auto space-y-2 py-2">
             <div
-              v-for="org in orgTree"
+              v-for="org in displayOrgTree"
               :key="org.name"
             >
-              <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-surface-container-low rounded group cursor-pointer" @click="org.expanded = !org.expanded">
-                <span class="material-symbols-outlined text-outline text-[18px]">{{ org.expanded ? 'expand_more' : 'chevron_right' }}</span>
-                <input v-model="org.checked" class="w-4 h-4 text-primary border-outline-variant rounded" type="checkbox" @click.stop>
-                <span class="text-body-md font-body-md text-on-surface">{{ org.name }}</span>
+              <div
+                class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all"
+                :class="signupForm.orgNo === org.id ? 'bg-primary-container/20 border border-primary/30' : 'hover:bg-surface-container-low'"
+              >
+                <span class="material-symbols-outlined text-outline text-[18px] cursor-pointer select-none" @click.stop="org.expanded = !org.expanded">
+                  {{ org.expanded ? 'expand_more' : 'chevron_right' }}
+                </span>
+                <span class="material-symbols-outlined text-[18px] cursor-pointer select-none" :class="signupForm.orgNo === org.id ? 'text-primary' : 'text-outline'" @click="selectOrg(org.name, org.id)">
+                  {{ signupForm.orgNo === org.id ? 'radio_button_checked' : 'radio_button_unchecked' }}
+                </span>
+                <span class="text-body-md font-body-md flex-1 cursor-pointer select-none" :class="signupForm.orgNo === org.id ? 'font-bold text-primary' : 'text-on-surface'" @click="selectOrg(org.name, org.id)">{{ org.name }}</span>
               </div>
               <div v-if="org.expanded && org.children" class="pl-6 space-y-2 border-l-2 border-outline-variant/20 ml-4">
                 <div
@@ -184,23 +191,29 @@
                   :key="child.name"
                 >
                   <div
-                    class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer"
-                    :class="child.expanded ? 'bg-primary-container/10 border border-primary/20' : 'hover:bg-surface-container-low'"
-                    @click="child.expanded = !child.expanded"
+                    class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all"
+                    :class="signupForm.orgNo === child.id ? 'bg-primary-container/20 border border-primary/30' : (child.expanded ? 'bg-primary-container/10 border border-primary/20' : 'hover:bg-surface-container-low')"
                   >
-                    <span class="material-symbols-outlined text-[18px]" :class="child.expanded ? 'text-primary' : 'text-outline'">{{ child.expanded ? 'expand_more' : 'chevron_right' }}</span>
-                    <input v-model="child.checked" class="w-4 h-4 text-primary border-outline-variant rounded" type="checkbox" @click.stop>
-                    <span class="text-body-md" :class="child.expanded ? 'font-bold text-primary' : 'text-on-surface'">{{ child.name }}</span>
+                    <span class="material-symbols-outlined text-[18px] cursor-pointer select-none" :class="child.expanded ? 'text-primary' : 'text-outline'" @click.stop="child.expanded = !child.expanded">
+                      {{ child.expanded ? 'expand_more' : 'chevron_right' }}
+                    </span>
+                    <span class="material-symbols-outlined text-[18px] cursor-pointer select-none" :class="signupForm.orgNo === child.id ? 'text-primary' : 'text-outline'" @click="selectOrg(child.name, child.id)">
+                      {{ signupForm.orgNo === child.id ? 'radio_button_checked' : 'radio_button_unchecked' }}
+                    </span>
+                    <span class="text-body-md flex-1 cursor-pointer select-none" :class="signupForm.orgNo === child.id ? 'font-bold text-primary' : (child.expanded ? 'font-bold text-primary' : 'text-on-surface')" @click="selectOrg(child.name, child.id)">{{ child.name }}</span>
                   </div>
                   <div v-if="child.expanded && child.children" class="pl-6 space-y-1 border-l-2 border-outline-variant/20 ml-4">
                     <div
                       v-for="sub in child.children"
                       :key="sub.name"
-                      class="flex items-center gap-2 px-2 py-1.5 hover:bg-surface-container rounded cursor-pointer"
+                      class="flex items-center gap-2 px-2 py-1.5 rounded cursor-pointer transition-all"
+                      :class="signupForm.orgNo === sub.id ? 'bg-primary-container/20 border border-primary/30' : 'hover:bg-surface-container'"
                       @click="selectOrg(sub.name, sub.id)"
                     >
-                      <input v-model="sub.checked" class="w-4 h-4 text-primary border-outline-variant rounded" type="checkbox" @click.stop>
-                      <span class="text-body-md text-on-surface-variant">{{ sub.name }}</span>
+                      <span class="material-symbols-outlined text-[18px]" :class="signupForm.orgNo === sub.id ? 'text-primary' : 'text-outline'">
+                        {{ signupForm.orgNo === sub.id ? 'radio_button_checked' : 'radio_button_unchecked' }}
+                      </span>
+                      <span class="text-body-md" :class="signupForm.orgNo === sub.id ? 'font-medium text-primary' : 'text-on-surface-variant'">{{ sub.name }}</span>
                     </div>
                   </div>
                 </div>
@@ -249,7 +262,7 @@ export default {
     }
   },
   computed: {
-    filteredOrgTree() {
+    displayOrgTree() {
       if (!this.orgFilter) return this.orgTree
       const filter = (nodes) => {
         return nodes.map(n => {
@@ -274,6 +287,7 @@ export default {
     selectOrg(name, id) {
       this.signupForm.org = name
       this.signupForm.orgNo = id
+      this.showOrgModal = false
     },
     loadOrgTree() {
       this.orgTreeLoading = true
@@ -288,7 +302,7 @@ export default {
     },
     transformOrgTree(nodes) {
       return nodes.map(n => ({
-        name: n.orgName || n.name || '',
+        name: n.label || n.orgName || n.name || '',
         id: n.id || n.orgNo || '',
         expanded: false,
         checked: false,
@@ -352,6 +366,7 @@ export default {
       this.postRequest('/common/register', {
         username: this.signupForm.username,
         password: this.signupForm.password,
+        rePassword: this.signupForm.confirmPassword,
         phone: this.signupForm.phone,
         orgNo: this.signupForm.orgNo,
         nickname,
